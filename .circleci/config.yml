@@ -18,7 +18,7 @@ jobs:
 
       - run:
           name: Remove playwright since there is no phantomjs binary available for arm64
-          command: npm uninstall @playwright/test
+          command: sed -i '/"@playwright\/test".*/d' package.json
 
       - run:
           name: Install NPM Dependencies
