@@ -33,6 +33,10 @@ jobs:
           name: Build deb package
           command: USE_SYSTEM_FPM=true npm run build:electron:deb
 
+      - run:
+          name: List packages
+          command: find packages
+
       - store_artifacts:
           name: Upload deb artifact
           path: packages/bruno-app/out/bruno_1.20.2_arm64_linux.deb
