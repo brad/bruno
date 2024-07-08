@@ -31,15 +31,21 @@ jobs:
 
       - run:
           name: Build deb package
-          command: USE_SYSTEM_FPM=true npm run build:electron:deb
+          env:
+            USE_SYSTEM_FPM: true
+          command: npm run build:electron:deb
 
       - run:
           name: Build rpm package
-          command: USE_SYSTEM_FPM=true npm run build:electron:rpm
+          env:
+            USE_SYSTEM_FPM: true
+          command: npm run build:electron:rpm
 
       - run:
           name: Build AppImage package
-          command: USE_SYSTEM_FPM=true npm run build:electron:linux
+          env:
+            USE_SYSTEM_FPM: true
+          command: npm run build:electron:linux
 
       - store_artifacts:
           path: packages/bruno-app/out/*.deb
