@@ -26,7 +26,7 @@ if [ "$ARCH" == "aarch64" ]; then
   ARCH="arm64"
 fi
 
-d pacakges/bruno-electron
+cd pacakges/bruno-electron
 if [ "$1" == "snap" ]; then
   echo "Building snap distribution"
   npm run dist:snap -- $ARCH
