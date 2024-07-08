@@ -106,7 +106,7 @@ async function main() {
       osArg = 'linux';
     }
 
-    await execCommandWithOutput(`npm run dist:${osArg} --workspace=packages/bruno-electron`);
+    await execCommandWithOutput(`npm run dist:${osArg}`);
   } catch (error) {
     console.error('An error occurred:', error);
   }
