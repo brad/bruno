@@ -14,7 +14,7 @@ jobs:
 
       - run:
           name: Install FPM
-          command: sudo gem install fpm
+          command: gem install fpm
 
       # Remove deps needing phantomjs since there is no binary available for arm64
       - run:
@@ -33,19 +33,15 @@ jobs:
           name: Build deb package
           env:
             USE_SYSTEM_FPM: true
-          command: npm run build:electron:deb
+          command: USE_SYSTEM_FPM=true npm run build:electron:deb
 
       - run:
           name: Build rpm package
-          env:
-            USE_SYSTEM_FPM: true
-          command: npm run build:electron:rpm
+          command: USE_SYSTEM_FPM=true npm run build:electron:rpm
 
       - run:
           name: Build AppImage package
-          env:
-            USE_SYSTEM_FPM: true
-          command: npm run build:electron:linux
+          command: USE_SYSTEM_FPM=true npm run build:electron:linux
 
       - store_artifacts:
           path: packages/bruno-app/out/*.deb
