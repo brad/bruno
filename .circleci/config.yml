@@ -39,17 +39,17 @@ jobs:
 
       - store_artifacts:
           name: Upload deb artifact
-          path: packages/bruno-app/out/bruno_1.20.2_arm64_linux.deb
+          path: packages/bruno-electron/out/bruno_1.20.2_arm64_linux.deb
           destination: bruno-app-linux-arm64.deb
 
       - store_artifacts:
           name: Upload rpm artifact
-          path: packages/bruno-app/out/bruno_1.20.2_aarch64_linux.rpm
+          path: packages/bruno-electron/out/bruno_1.20.2_aarch64_linux.rpm
           destination: bruno-app-linux-aarch64.rpm
 
       - store_artifacts:
           name: Upload AppImage artifact
-          path: packages/bruno-app/out/bruno_1.20.2_arm64_linux.AppImage
+          path: packages/bruno-electron/out/bruno_1.20.2_arm64_linux.AppImage
           destination: bruno-app-linux-arm64.AppImage
 
 workflows:
