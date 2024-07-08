@@ -17,6 +17,10 @@ jobs:
           command: sudo gem install fpm
 
       - run:
+          name: Remove playwright since there is no phantomjs binary available for arm64
+          command: npm uninstall @playwright/test
+
+      - run:
           name: Install NPM Dependencies
           command: npm install
 
@@ -31,6 +35,18 @@ jobs:
       - run:
           name: Build AppImage package
           command: USE_SYSTEM_FPM=true npm run build:electron:linux
+
+      - store_artifacts:
+          path: packages/bruno-app/out/*.deb
+          destination: bruno-app-linux-arm64.deb
+
+      - store_artifacts:
+          path: packages/bruno-app/out/*.rpm
+          destination: bruno-app-linux-arm64.rpm
+
+      - store_artifacts:
+          path: packages/bruno-app/out/*.AppImage
+          destination: bruno-app-linux-arm64.AppImage
 
 workflows:
   version: 2
