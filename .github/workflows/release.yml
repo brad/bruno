@@ -8,8 +8,7 @@ on:
 jobs:
   build:
     name: release
-    # Runs on the linux arm64 beta runner
-    runs-on: ubuntu-22.04-arm64
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
