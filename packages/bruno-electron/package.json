@@ -9,12 +9,12 @@
   "scripts": {
     "clean": "rimraf dist",
     "dev": "electron .",
-    "dist:mac": "electron-builder --mac --config electron-builder-config.js --workspace=packages/bruno-electron",
-    "dist:win": "electron-builder --win --config electron-builder-config.js --workspace=packages/bruno-electron",
-    "dist:linux": "electron-builder --linux AppImage --config electron-builder-config.js --workspace=packages/bruno-electron",
-    "dist:deb": "electron-builder --linux deb --config electron-builder-config.js --workspace=packages/bruno-electron",
-    "dist:rpm": "electron-builder --linux rpm --config electron-builder-config.js --workspace=packages/bruno-electron",
-    "dist:snap": "electron-builder --linux snap --config electron-builder-config.js --workspace=packages/bruno-electron",
+    "dist:mac": "electron-builder --mac --config electron-builder-config.js --workspace=packages/bruno-electron --arch $ARCH",
+    "dist:win": "electron-builder --win --config electron-builder-config.js --workspace=packages/bruno-electron --arch $ARCH",
+    "dist:linux": "electron-builder --linux AppImage --config electron-builder-config.js --workspace=packages/bruno-electron --arch $ARCH",
+    "dist:deb": "electron-builder --linux deb --config electron-builder-config.js --workspace=packages/bruno-electron --arch $ARCH",
+    "dist:rpm": "electron-builder --linux rpm --config electron-builder-config.js --workspace=packages/bruno-electron --arch $ARCH",
+    "dist:snap": "electron-builder --linux snap --config electron-builder-config.js --workspace=packages/bruno-electron --arch $ARCH",
     "pack": "electron-builder --dir",
     "test": "jest"
   },

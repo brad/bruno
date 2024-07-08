@@ -106,7 +106,15 @@ async function main() {
       osArg = 'linux';
     }
 
-    await execCommandWithOutput(`npm run dist:${osArg}`);
+    // Get arch to pass to electron-builder
+    let archArg;
+    if (os.arch() === 'x64') {
+      archArg = 'x64';
+    } else {
+      archArg = 'arm64';
+    }
+
+    await execCommandWithOutput(`npm run dist:${osArg} -- ${archArg}`);
   } catch (error) {
     console.error('An error occurred:', error);
   }
