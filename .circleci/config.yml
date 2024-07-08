@@ -23,7 +23,7 @@ jobs:
 
       - run:
           name: Remove electron-icon-maker
-          command: sed -i '/"electron-icon-maker".*/d' packages/bruno-electron/package.json
+          command: sed -i '/"electron-icon-maker".*/d' packages/bruno-electron/package.json && sed -i 's/"electron-builder":\ "23.0.2",/"electron-builder":\ "23.0.2"/' packages/bruno-electron/package.json
 
       - run:
           name: Install NPM Dependencies
