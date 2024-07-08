@@ -114,7 +114,7 @@ async function main() {
       archArg = 'arm64';
     }
 
-    await execCommandWithOutput(`npm run dist:${osArg} -- ${archArg}`);
+    await execCommandWithOutput(`npm run dist:${osArg} -- --${archArg}`);
   } catch (error) {
     console.error('An error occurred:', error);
   }
