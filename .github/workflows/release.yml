@@ -1,0 +1,33 @@
+name: Build and Release Electron App
+
+on:
+  push:
+    branches:
+      - feature/linux-arm64-build
+
+jobs:
+  build:
+    name: release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install Ubuntu Dependencies
+        run: apt install -y fpm
+
+      - name: Install NPM Dependencies
+        run: npm install
+
+      - name: Build Electron App
+        run: USE_SYSTEM_FPM=true npm run build:electron:deb
+
+      - name: Save artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: electron-deb
+          path: packages/bruno-electron/out/*.deb
