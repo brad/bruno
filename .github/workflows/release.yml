@@ -33,8 +33,14 @@ jobs:
       - name: Install NPM Dependencies
         run: npm install
 
-      - name: Build Electron App
-        run: USE_SYSTEM_FPM=true npm run build:electron
+      - name: Build deb package
+        run: USE_SYSTEM_FPM=true npm run build:electron:deb
+
+      - name: Build rpm package
+        run: USE_SYSTEM_FPM=true npm run build:electron:rpm
+
+      - name: Build AppImage package
+        run: USE_SYSTEM_FPM=true npm run build:electron:linux
 
       - name: Save artifacts
         uses: actions/upload-artifact@v2
