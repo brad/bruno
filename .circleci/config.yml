@@ -2,40 +2,38 @@ version: 2.1
 
 jobs:
   build:
-  machine:
-    image: ubuntu-2204:2023.07.1
-    resource_class: arm.medium
-  docker:
-    - image: circleci/node:18
-  steps:
-    - checkout
+    machine:
+      image: ubuntu-2204:2023.07.1
+      resource_class: arm.medium
+    steps:
+      - checkout
 
-    - run:
-      name: Install Ubuntu Dependencies
-      command: sudo apt-get update && sudo apt-get install -y ruby-full squashfs-tools
+      - run:
+        name: Install Ubuntu Dependencies
+        command: sudo apt-get update && sudo apt-get install -y ruby-full squashfs-tools
 
-    - run:
-      name: Install FPM
-      command: sudo gem install fpm
+      - run:
+        name: Install FPM
+        command: sudo gem install fpm
 
-    - run:
-      name: Install NPM Dependencies
-      command: npm install
+      - run:
+        name: Install NPM Dependencies
+        command: npm install
 
-    - run:
-      name: Build deb package
-      command: USE_SYSTEM_FPM=true npm run build:electron:deb
+      - run:
+        name: Build deb package
+        command: USE_SYSTEM_FPM=true npm run build:electron:deb
 
-    - run:
-      name: Build rpm package
-      command: USE_SYSTEM_FPM=true npm run build:electron:rpm
+      - run:
+        name: Build rpm package
+        command: USE_SYSTEM_FPM=true npm run build:electron:rpm
 
-    - run:
-      name: Build AppImage package
-      command: USE_SYSTEM_FPM=true npm run build:electron:linux
+      - run:
+        name: Build AppImage package
+        command: USE_SYSTEM_FPM=true npm run build:electron:linux
 
 workflows:
   version: 2
   build_and_package:
-  jobs:
-    - build
+    jobs:
+      - build
