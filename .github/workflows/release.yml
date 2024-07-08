@@ -18,7 +18,10 @@ jobs:
           node-version: '18'
 
       - name: Install Ubuntu Dependencies
-        run: sudo apt-get update && sudo apt install -y fpm
+        run: sudo apt-get update && sudo apt-get install ruby-full squashfs-tools
+
+      - name: Install FPM
+        run: sudo gem install fpm
 
       - name: Install NPM Dependencies
         run: npm install
