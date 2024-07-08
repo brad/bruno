@@ -9,6 +9,13 @@ jobs:
   build:
     name: release
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - arch: amd64
+            docker_image: ""
+          - arch: arm64
+            docker_image: arm64v8/ubuntu:latest
     steps:
       - uses: actions/checkout@v2
 
@@ -32,5 +39,5 @@ jobs:
       - name: Save artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: electron-deb
-          path: packages/bruno-electron/out/*.deb
+          name: bruno-app-linux-${{ matrix.arch }}.deb
+          path: packages/bruno-app/out/*.deb
