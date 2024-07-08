@@ -34,10 +34,10 @@ jobs:
         run: npm install
 
       - name: Build Electron App
-        run: USE_SYSTEM_FPM=true npm run build:electron:deb
+        run: USE_SYSTEM_FPM=true npm run build:electron
 
       - name: Save artifacts
         uses: actions/upload-artifact@v2
         with:
           name: bruno-app-linux-${{ matrix.arch }}.deb
-          path: packages/bruno-app/out/*.deb
+          path: packages/bruno-app/out/*.{deb,rpm,AppImage}
