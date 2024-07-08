@@ -16,9 +16,14 @@ jobs:
           name: Install FPM
           command: sudo gem install fpm
 
+      # Remove deps needing phantomjs since there is no binary available for arm64
       - run:
-          name: Remove playwright since there is no phantomjs binary available for arm64
+          name: Remove playwright/test
           command: sed -i '/"@playwright\/test".*/d' package.json
+
+      - run:
+          name: Remove electron-icon-maker
+          command: sed -i '/"electron-icon-maker".*/d' packages/bruno-electron/package.json
 
       - run:
           name: Install NPM Dependencies
