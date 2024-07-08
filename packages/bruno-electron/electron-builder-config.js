@@ -49,6 +49,7 @@ const config = {
         target: 'rpm',
         arch: ['x64', 'arm64']
       }
+    ]
   },
   win: {
     artifactName: '${name}_${version}_${arch}_win.${ext}',
