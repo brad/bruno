@@ -10,7 +10,7 @@ jobs:
 
       - run:
           name: Install Ubuntu Dependencies
-          command: sudo apt-get update && sudo apt-get install -y ruby-full squashfs-tools
+          command: sudo apt-get update && sudo apt-get install -y ruby-full rpm squashfs-tools
 
       - run:
           name: Install FPM
@@ -31,8 +31,6 @@ jobs:
 
       - run:
           name: Build deb package
-          env:
-            USE_SYSTEM_FPM: true
           command: USE_SYSTEM_FPM=true npm run build:electron:deb
 
       - run:
@@ -44,11 +42,11 @@ jobs:
           command: USE_SYSTEM_FPM=true npm run build:electron:linux
 
       - store_artifacts:
-          path: packages/bruno-app/out/*.deb
+          path: packages/bruno-app/out/bruno_1.20.2_arm64_linux.deb
           destination: bruno-app-linux-arm64.deb
 
       - store_artifacts:
-          path: packages/bruno-app/out/*.rpm
+          path: packages/bruno-app/out/bruno_1.20.2_arm64_linux.rpm
           destination: bruno-app-linux-arm64.rpm
 
       - store_artifacts:
