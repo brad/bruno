@@ -8,14 +8,8 @@ on:
 jobs:
   build:
     name: release
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - arch: amd64
-            docker_image: ""
-          - arch: arm64
-            docker_image: arm64v8/ubuntu:latest
+    # Runs on the linux arm64 beta runner
+    runs-on: ubuntu-22.04-arm64
     steps:
       - uses: actions/checkout@v2
 
