@@ -30,6 +30,10 @@ jobs:
           command: npm install
 
       - run:
+          name: Build packages
+          command: npm run build:graphql-docs && npm run build:bruno-query && npm run build:bruno-common
+
+      - run:
           name: Build deb package
           command: USE_SYSTEM_FPM=true npm run build:electron:deb
 
@@ -43,18 +47,18 @@ jobs:
 
       - store_artifacts:
           name: Upload deb artifact
-          path: packages/bruno-electron/out/*.deb
-          destination: releases
+          path: packages/bruno-electron/out/bruno_1.20.2_arm64_linux.deb
+          destination: bruno_1.20.2_arm64_linux.deb
 
       - store_artifacts:
           name: Upload rpm artifact
-          path: packages/bruno-electron/out/*.rpm
-          destination: releases
+          path: packages/bruno-electron/out/bruno_1.20.2_aarch64_linux.rpm
+          destination: bruno_1.20.2_aarch64_linux.rpm
 
       - store_artifacts:
           name: Upload AppImage artifact
-          path: packages/bruno-electron/out/*.AppImage
-          destination: releases
+          path: packages/bruno-electron/out/bruno_1.20.2_arm64_linux.AppImage
+          destination: bruno_1.20.2_arm64_linux.AppImage
 
 workflows:
   version: 2
