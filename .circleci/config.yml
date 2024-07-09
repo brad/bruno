@@ -2,6 +2,9 @@ version: 2.1
 
 jobs:
   build:
+    environment:
+      VERSION: 1.20.2
+      USE_SYSTEM_FPM: true
     machine:
       image: ubuntu-2204:2023.07.1
       resource_class: arm.medium
@@ -10,7 +13,7 @@ jobs:
 
       - run:
           name: Install Ubuntu Dependencies
-          command: sudo apt-get update && sudo apt-get install -y ruby-full rpm squashfs-tools
+          command: sudo apt-get update && sudo apt-get install -y node-rimraf ruby-full rpm squashfs-tools
 
       - run:
           name: Install FPM
@@ -30,35 +33,27 @@ jobs:
           command: npm install
 
       - run:
-          name: Build packages
+          name: Build bruno node packages
           command: npm run build:graphql-docs && npm run build:bruno-query && npm run build:bruno-common
 
       - run:
-          name: Build deb package
-          command: USE_SYSTEM_FPM=true npm run build:electron:deb
-
-      - run:
-          name: Build rpm package
-          command: USE_SYSTEM_FPM=true npm run build:electron:rpm
-
-      - run:
-          name: Build AppImage package
-          command: USE_SYSTEM_FPM=true npm run build:electron:linux
+          name: Build linux packages
+          command: npm run build:electron:deb build:electron:rpm build:electron:linux
 
       - store_artifacts:
           name: Upload deb artifact
-          path: packages/bruno-electron/out/bruno_1.20.2_arm64_linux.deb
-          destination: bruno_1.20.2_arm64_linux.deb
+          path: packages/bruno-electron/out/bruno_${VERSION}_arm64_linux.deb
+          destination: bruno_${VERSION}_arm64_linux.deb
 
       - store_artifacts:
           name: Upload rpm artifact
-          path: packages/bruno-electron/out/bruno_1.20.2_aarch64_linux.rpm
-          destination: bruno_1.20.2_aarch64_linux.rpm
+          path: packages/bruno-electron/out/bruno_${VERSION}_aarch64_linux.rpm
+          destination: bruno_${VERSION}_aarch64_linux.rpm
 
       - store_artifacts:
           name: Upload AppImage artifact
-          path: packages/bruno-electron/out/bruno_1.20.2_arm64_linux.AppImage
-          destination: bruno_1.20.2_arm64_linux.AppImage
+          path: packages/bruno-electron/out/bruno_${VERSION}_arm64_linux.AppImage
+          destination: bruno_${VERSION}_arm64_linux.AppImage
 
 workflows:
   version: 2
