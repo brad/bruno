@@ -51,7 +51,7 @@ jobs:
 
       - run:
           name: Build rpm package
-          command: npm run build:electron:npm
+          command: npm run build:electron:rpm
 
       - store_artifacts:
           name: Upload rpm artifact
