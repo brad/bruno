@@ -13,20 +13,20 @@ jobs:
 
       - run:
           name: Install Ubuntu Dependencies
-          command: sudo apt-get update && sudo apt-get install -y node-rimraf ruby-full rpm squashfs-tools
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y node-rimraf ruby-full rpm squashfs-tools
 
       - run:
           name: Install FPM
           command: gem install fpm
 
-      # Remove deps needing phantomjs since there is no binary available for arm64
       - run:
-          name: Remove playwright/test
-          command: sed -i '/"@playwright\/test".*/d' package.json
-
-      - run:
-          name: Remove electron-icon-maker
-          command: sed -i '/"electron-icon-maker".*/d' packages/bruno-electron/package.json && sed -i 's/"electron-builder":\ "23.0.2",/"electron-builder":\ "23.0.2"/' packages/bruno-electron/package.json
+          name: Remove phantomjs dependencies
+          command: |
+            sed -i '/"@playwright\/test".*/d' package.json
+            sed -i '/"electron-icon-maker".*/d' packages/bruno-electron/package.json
+            sed -i 's/"electron-builder":\ "23.0.2",/"electron-builder":\ "23.0.2"/' packages/bruno-electron/package.json
 
       - run:
           name: Install NPM Dependencies
@@ -34,26 +34,32 @@ jobs:
 
       - run:
           name: Build bruno node packages
-          command: npm run build:graphql-docs && npm run build:bruno-query && npm run build:bruno-common
+          command: |
+            npm run build:graphql-docs
+            npm run build:bruno-query
+            npm run build:bruno-common
 
       - run:
           name: Build linux packages
-          command: npm run build:electron:deb build:electron:rpm build:electron:linux
+          command: |
+            npm run build:electron:deb
+            npm run build:electron:rpm
+            npm run build:electron:linux
 
       - store_artifacts:
           name: Upload deb artifact
-          path: packages/bruno-electron/out/bruno_${VERSION}_arm64_linux.deb
-          destination: bruno_${VERSION}_arm64_linux.deb
+          path: packages/bruno-electron/out/bruno_1.20.2_arm64_linux.deb
+          destination: bruno_1.20.2_arm64_linux.deb
 
       - store_artifacts:
           name: Upload rpm artifact
-          path: packages/bruno-electron/out/bruno_${VERSION}_aarch64_linux.rpm
-          destination: bruno_${VERSION}_aarch64_linux.rpm
+          path: packages/bruno-electron/out/bruno_$VERSION_aarch64_linux.rpm
+          destination: bruno_$VERSION_aarch64_linux.rpm
 
       - store_artifacts:
           name: Upload AppImage artifact
-          path: packages/bruno-electron/out/bruno_${VERSION}_arm64_linux.AppImage
-          destination: bruno_${VERSION}_arm64_linux.AppImage
+          path: packages/bruno-electron/out
+          destination: linux_arm64_builds
 
 workflows:
   version: 2
