@@ -40,26 +40,31 @@ jobs:
             npm run build:bruno-common
 
       - run:
-          name: Build linux packages
-          command: |
-            npm run build:electron:deb
-            npm run build:electron:rpm
-            npm run build:electron:linux
+          name: Build deb package
+          command: npm run build:electron:deb
 
       - store_artifacts:
           name: Upload deb artifact
           path: packages/bruno-electron/out/bruno_1.20.2_arm64_linux.deb
           destination: bruno_1.20.2_arm64_linux.deb
 
+      - run:
+          name: Build rpm package
+          command: npm run build:electron:npm
+
       - store_artifacts:
           name: Upload rpm artifact
-          path: packages/bruno-electron/out/bruno_$VERSION_aarch64_linux.rpm
-          destination: bruno_$VERSION_aarch64_linux.rpm
+          path: packages/bruno-electron/out/bruno_1.20.2_aarch64_linux.rpm
+          destination: bruno_1.20.2_aarch64_linux.rpm
+
+      - run:
+          name: Build AppImage package
+          command: npm run build:electron:linux
 
       - store_artifacts:
           name: Upload AppImage artifact
-          path: packages/bruno-electron/out
-          destination: linux_arm64_builds
+          path: packages/bruno-electron/out/bruno_1.20.2_arm64_linux.AppImage
+          destination: bruno_1.20.2_arm64_linux.AppImage
 
 workflows:
   version: 2
